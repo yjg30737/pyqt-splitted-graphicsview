@@ -9,9 +9,9 @@ The QGraphicsScene in this view is resized based on the size of the image that w
 * PyQt5 >= 5.14
 
 ## Class & Method Overview
-* SplittedImageView
-  * setFilenameToLeft(filename)
-  * setFilenameToRight(filename)
+* SplittedImageView - class in the imageView.py
+  * setFilenameToLeft(filename) - method
+  * setFilenameToRight(filename) - method
  
 ## Example Code
 Refer to the main.py to understand how to use it.
