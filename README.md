@@ -10,8 +10,10 @@ The QGraphicsScene in this view is resized based on the size of the image that w
 
 ## Class & Method Overview
 * SplittedImageView - class in the imageView.py
-  * setFilenameToLeft(filename) - method
-  * setFilenameToRight(filename) - method
+  * setFilenameToLeft(filename) - set the image file on the left
+  * setFilenameToRight(filename) - set the image file on the right
+  * removeItemOnTheLeft() - remove the image on the left if it exists
+  * removeItemOnTheRight() - remove the image on the right if it exists
  
 ## Example Code
 Refer to the main.py to understand how to use it.
