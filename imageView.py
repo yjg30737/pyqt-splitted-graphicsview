@@ -110,6 +110,18 @@ class SplittedImageView(QGraphicsView):
 
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
+    def __refresh_scene_size(self):
+        new_scene_width = max(self.__p_left.width(), self.__p_right.width())
+        new_scene_height = max(self.__p_left.height(), self.__p_right.height())
+        self.__scene.setSceneRect(0, 0, new_scene_width, new_scene_height)
+
+    def __refresh_line(self):
+        if self.__line:
+            if self.__line.x() > self.__scene.width():
+                self.__line.setX(0)
+            self.__line.setLine(self.__line.line().x1(), 0, self.__line.line().x2(), self.__scene.height())
+            self.__line.updateHandlePosition()
+
     def setFilenameToLeft(self, filename):
         pixmap = QPixmap(filename)
         if pixmap.width() < self.__min_width or pixmap.height() < self.__min_height:
@@ -125,13 +137,8 @@ class SplittedImageView(QGraphicsView):
         self.__item_left.setTransformationMode(Qt.SmoothTransformation)
         self.__item_left.setPos(0, 0)
 
-        new_scene_width = max(self.__p_left.width(), self.__scene.width())
-        new_scene_height = max(self.__p_left.height(), self.__scene.height())
-        self.__scene.setSceneRect(0, 0, new_scene_width, new_scene_height)
-
-        if self.__line:
-            self.__line.setLine(self.__line.line().x1(), 0, self.__line.line().x2(), new_scene_height)
-            self.__line.updateHandlePosition()
+        self.__refresh_scene_size()
+        self.__refresh_line()
 
         self.setScene(self.__scene)
         self.fitInView(self.__scene.sceneRect(), self.__aspectRatioMode)
@@ -151,13 +158,8 @@ class SplittedImageView(QGraphicsView):
         self.__item_right.setTransformationMode(Qt.SmoothTransformation)
         self.__item_right.setPos(0, 0)
 
-        new_scene_width = max(self.__p_right.width(), self.__scene.width())
-        new_scene_height = max(self.__p_right.height(), self.__scene.height())
-        self.__scene.setSceneRect(0, 0, new_scene_width, new_scene_height)
-
-        if self.__line:
-            self.__line.setLine(self.__line.line().x1(), 0, self.__line.line().x2(), new_scene_height)
-            self.__line.updateHandlePosition()
+        self.__refresh_scene_size()
+        self.__refresh_line()
 
         self.setScene(self.__scene)
         self.fitInView(self.__scene.sceneRect(), self.__aspectRatioMode)
