@@ -3,6 +3,8 @@ QGraphicsView which shows clipped left image and clipped right image at the same
 
 This widget is suitable for displaying images before and after processing.
 
+The QGraphicsScene in this view is resized based on the size of the image that was added, according to the specific purpose of this script.
+
 ## Requirements
 * PyQt5 >= 5.14
 
@@ -21,3 +23,4 @@ Set the image files for each part (left and right) and observe what happens when
 
 https://github.com/yjg30737/pyqt-splitted-graphicsview/assets/55078043/0da48979-85e3-4e68-95e4-57395ee7393a
 
+Left part is a (1).png, right part is a (2).png. These files are in the repo, so you can use them to test this script, right away.
