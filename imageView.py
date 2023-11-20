@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QRectF, QPointF
+from PyQt5.QtCore import Qt, QRectF, QPointF, pyqtSignal
 from PyQt5.QtGui import QPixmap, QPen
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsItem, QGraphicsLineItem, QGraphicsEllipseItem, \
     QMessageBox
@@ -82,6 +82,7 @@ class ClippablePixmapItem(QGraphicsPixmapItem):
 
 
 class SplittedImageView(QGraphicsView):
+
     def __init__(self, parent=None):
         super().__init__(parent)
         self.__aspectRatioMode = Qt.KeepAspectRatio
@@ -161,11 +162,18 @@ class SplittedImageView(QGraphicsView):
         self.setScene(self.__scene)
         self.fitInView(self.__scene.sceneRect(), self.__aspectRatioMode)
 
+    def removeItemOnTheLeft(self):
+        if self.__item_left:
+            self.__scene.removeItem(self.__item_left)
+            self.__item_left = ''
+
+    def removeItemOnTheRight(self):
+        if self.__item_right:
+            self.__scene.removeItem(self.__item_right)
+            self.__item_right = ''
+
     def setAspectRatioMode(self, mode):
         self.__aspectRatioMode = mode
-
-    def __updateEachItemsBasedOnLine(self, x):
-        print(x)
 
     def resizeEvent(self, e):
         super().resizeEvent(e)

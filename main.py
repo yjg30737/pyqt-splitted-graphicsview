@@ -29,6 +29,8 @@ class MainWindow(QMainWindow):
         self.__initUi()
 
     def __initUi(self):
+        self.setWindowTitle('PyQt Splitted Graphics View Example')
+
         findPathWidget1 = FindPathWidget()
         findPathWidget1.getLineEdit().setPlaceholderText('Set Image File to Left...')
         findPathWidget1.added.connect(self.__addLeft)
@@ -52,9 +54,23 @@ class MainWindow(QMainWindow):
 
         self.__imageView = SplittedImageView(self)
 
+        self.__removeImageOnTheLeftBtn = QPushButton('Remove Image on the Left')
+        self.__removeImageOnTheLeftBtn.clicked.connect(self.__removeImageOnTheLeft)
+        self.__removeImageOnTheRightBtn = QPushButton('Remove Image on the Right')
+        self.__removeImageOnTheRightBtn.clicked.connect(self.__removeImageOnTheRight)
+
+        lay = QHBoxLayout()
+        lay.addWidget(self.__removeImageOnTheLeftBtn)
+        lay.addWidget(self.__removeImageOnTheRightBtn)
+        lay.setContentsMargins(0, 0, 0, 0)
+
+        bottomWidget = QWidget()
+        bottomWidget.setLayout(lay)
+
         lay = QVBoxLayout()
         lay.addWidget(topWidget)
         lay.addWidget(self.__imageView)
+        lay.addWidget(bottomWidget)
 
         mainWidget = QWidget(self)
         mainWidget.setLayout(lay)
@@ -65,6 +81,13 @@ class MainWindow(QMainWindow):
 
     def __addRight(self, filename):
         self.__imageView.setFilenameToRight(filename)
+
+    def __removeImageOnTheLeft(self):
+        self.__imageView.removeItemOnTheLeft()
+
+    def __removeImageOnTheRight(self):
+        self.__imageView.removeItemOnTheRight()
+
 
 
 if __name__ == "__main__":
