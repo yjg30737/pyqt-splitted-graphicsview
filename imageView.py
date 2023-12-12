@@ -110,6 +110,8 @@ class SplittedImageView(QGraphicsView):
 
         self.setViewportUpdateMode(QGraphicsView.FullViewportUpdate)
 
+        self.__line.setX(self.sceneRect().width() // 2)
+
     def __refresh_scene_size(self):
         new_scene_width = min(self.__p_left.width(), self.__p_right.width()) if self.__p_right.width() != 0 else self.__p_left.width()
         new_scene_height = min(self.__p_left.height(), self.__p_right.height()) if self.__p_right.height() != 0 else self.__p_left.height()
